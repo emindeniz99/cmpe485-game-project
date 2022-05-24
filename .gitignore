@@ -148,3 +148,5 @@ crashlytics-build.properties
 # Description: Save files into local history
 # VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=xyz.local-history
 .history/
+
+.DS_Store
