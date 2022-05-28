@@ -55,6 +55,13 @@ public class Items : MonoBehaviour
         {
             Debug.Log(text);
             text.GetComponent<TextMeshProUGUI>().text = "" + value;
+
+
+            gameObject.GetComponent<Renderer>().material.color = value > 0 ? Color.blue : Color.red;
+
+            // new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+
             reward = value;
         }
         else
