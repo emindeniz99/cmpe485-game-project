@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        score = 0;
+        speed = 15;
         areaWidth = ground.transform.localScale.x * positionScaleRatio;
         areaHeight = ground.transform.localScale.z * positionScaleRatio;
 
@@ -104,7 +108,10 @@ public class GameManager : MonoBehaviour
 
         scoreGUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
-
+        if (score < 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
 
