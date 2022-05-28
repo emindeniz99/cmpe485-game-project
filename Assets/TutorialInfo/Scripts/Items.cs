@@ -40,6 +40,11 @@ public class Items : MonoBehaviour
         {
             PoolManager.Instance.spawnPool.Release(gameObject);
         }
+        if (other.gameObject.name == "player")
+        {
+            GameManager.score += reward;
+            PoolManager.Instance.spawnPool.Release(gameObject);
+        }
     }
 
     public void setValue(int value)
@@ -58,5 +63,7 @@ public class Items : MonoBehaviour
         }
 
     }
+
+
 
 }

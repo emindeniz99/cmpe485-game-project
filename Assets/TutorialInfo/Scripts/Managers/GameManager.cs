@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
 
+    public GameObject scoreGUI;
+
+    public static long score = 0;
 
     public static float speed = 15;
 
@@ -77,5 +81,13 @@ public class GameManager : MonoBehaviour
             // }
 
         }
+    }
+
+
+    void FixedUpdate()
+    {
+
+        scoreGUI.GetComponent<TextMeshProUGUI>().text = "" + score;
+
     }
 }
