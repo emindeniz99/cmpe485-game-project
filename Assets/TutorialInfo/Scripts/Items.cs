@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Items : MonoBehaviour
-
-
 {
 
+    public int reward;
 
     // Start is called before the first frame update
     void Start()
     {
+
+
     }
 
     // Update is called once per frame
@@ -21,6 +23,10 @@ public class Items : MonoBehaviour
         gameObject.transform.Translate(movement * Time.deltaTime * GameManager.speed);
 
 
+        if (gameObject.transform.position.z < -GameManager.areaHeight)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -34,6 +40,23 @@ public class Items : MonoBehaviour
         {
             PoolManager.Instance.spawnPool.Release(gameObject);
         }
+    }
+
+    public void setValue(int value)
+    {
+
+        var text = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+        if (text != null)
+        {
+            Debug.Log(text);
+            text.GetComponent<TextMeshProUGUI>().text = "" + value;
+            reward = value;
+        }
+        else
+        {
+            Debug.Log("null");
+        }
+
     }
 
 }

@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
                     newBall.transform.position = new Vector3(-gap, 0.5f, areaHeight);
                     newBall2.transform.position = new Vector3(gap, 0.5f, areaHeight);
                 }
+                newBall.GetComponent<Items>().setValue(Random.Range(1, 100));
+                newBall2.GetComponent<Items>().setValue(Random.Range(1, 100));
+
                 lastItem = newBall;
 
             }
