@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         ground.transform.localScale = new Vector3(ground.transform.localScale.x,
             ground.transform.localScale.y,
             ground.transform.localScale.z * 2);
+
+        StartCoroutine(SpeedUp());
     }
 
 
@@ -66,15 +68,15 @@ public class GameManager : MonoBehaviour
                 var pos = Random.Range(0, 2);
                 if (pos == 0)
                 {
-                    newBall.GetComponent<Items>().setValue(Random.Range(-100, 0));
-                    newBall2.GetComponent<Items>().setValue(Random.Range(1, 100));
+                    newBall.GetComponent<Items>().setValue(Random.Range(-20, -5));
+                    newBall2.GetComponent<Items>().setValue(Random.Range(1, 10));
 
                 }
                 else
                 if (pos == 1)
                 {
-                    newBall.GetComponent<Items>().setValue(Random.Range(1, 100));
-                    newBall2.GetComponent<Items>().setValue(Random.Range(-100, 0));
+                    newBall.GetComponent<Items>().setValue(Random.Range(1, 10));
+                    newBall2.GetComponent<Items>().setValue(Random.Range(-20, -5));
 
                 }
 
@@ -102,5 +104,17 @@ public class GameManager : MonoBehaviour
 
         scoreGUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
+
     }
+
+
+    IEnumerator SpeedUp()
+    {
+        while (speed < 60)
+        {
+            speed += 0.1f;
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+
 }

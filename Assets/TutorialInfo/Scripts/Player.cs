@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         foreach (var touch in Input.touches)
         {
 
-            transform.Translate(new Vector3(touch.deltaPosition.x, 0, touch.deltaPosition.y) * Time.deltaTime);
+            transform.Translate(new Vector3(touch.deltaPosition.x, 0, touch.deltaPosition.y) * touch.deltaTime / 2);
 
             //     if(touch.phase == TouchPhase.Began)
             //     {
