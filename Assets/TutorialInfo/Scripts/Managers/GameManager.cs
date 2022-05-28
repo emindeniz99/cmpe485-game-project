@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
 
     public static float areaHeight;
 
-    public static float positionScaleRatio = 10;
+    public static float positionScaleRatio = 1;
 
     public GameObject ground;
 
+
+    public static GameObject lastItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +29,7 @@ public class GameManager : MonoBehaviour
             ground.transform.localScale.z * 2);
     }
 
-    Vector3 GetRandomPositionAtNextGround()
-    {
-        return new Vector3(Random.Range(-areaWidth, areaWidth), 1, Random.Range(areaHeight, areaHeight * 2));
-    }
+
 
 
 
@@ -42,9 +41,25 @@ public class GameManager : MonoBehaviour
 
             if (PoolManager.Instance.isPoolingEnabled)
             {
-                if (!PoolManager.Instance.CanGet()) return;
+                if (!PoolManager.Instance.CanGet(2)) return;
+
+                // left
                 var newBall = PoolManager.Instance.GetFromPool();
-                newBall.transform.position = GetRandomPositionAtNextGround();
+                var newBall2 = PoolManager.Instance.GetFromPool();
+
+                var gap = 1.5f;
+                if (lastItem != null)
+                {
+                    newBall.transform.position = lastItem.transform.position + new Vector3(0, 0, 10);
+                    newBall2.transform.position = lastItem.transform.position + new Vector3(gap * 2, 0, 10);
+                }
+                else
+                {
+                    newBall.transform.position = new Vector3(-gap, 0.5f, areaHeight);
+                    newBall2.transform.position = new Vector3(gap, 0.5f, areaHeight);
+                }
+                lastItem = newBall;
+
             }
             // else
             // {

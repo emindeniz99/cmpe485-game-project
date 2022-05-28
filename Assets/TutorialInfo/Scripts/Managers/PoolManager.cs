@@ -58,9 +58,9 @@ public class PoolManager : MonoBehaviour
     }
 
 
-    public bool CanGet()
+    public bool CanGet(int count = 1)
     {
-        return spawnPool.CountActive < MaxSize;
+        return spawnPool.CountActive + count <= MaxSize;
     }
 
     public GameObject GetFromPool()
