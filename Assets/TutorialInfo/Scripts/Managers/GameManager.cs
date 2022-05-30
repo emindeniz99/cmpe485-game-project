@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public static long score = 0;
     public static long maxScore = 0;
 
-    public static float speed = 15;
+    public static float speed;
 
     public static float areaWidth;
 
@@ -26,25 +26,34 @@ public class GameManager : MonoBehaviour
 
     public GameObject ground;
 
+    public static GameManager instance;
+
 
     public static GameObject lastItem;
     // Start is called before the first frame update
     void Start()
     {
+
+        instance = this;
+
         duration = 0;
         score = 0;
         maxScore = 0;
 
         speed = 15;
+
         areaWidth = ground.transform.localScale.x * positionScaleRatio;
         areaHeight = ground.transform.localScale.z * positionScaleRatio;
 
         ground.transform.localScale = new Vector3(ground.transform.localScale.x,
             ground.transform.localScale.y,
-            ground.transform.localScale.z * 2);
+            ground.transform.localScale.z * 10);
 
         StartCoroutine(SpeedUp());
         StartCoroutine(countTime());
+
+        instance.scoreGUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
+
     }
 
 
@@ -68,8 +77,8 @@ public class GameManager : MonoBehaviour
                 var gap = 1.5f;
                 if (lastItem != null)
                 {
-                    newBall.transform.position = lastItem.transform.position + new Vector3(0, 0, 10);
-                    newBall2.transform.position = lastItem.transform.position + new Vector3(gap * 2, 0, 10);
+                    newBall.transform.position = lastItem.transform.position + new Vector3(0, 0, Mathf.Sqrt(speed) * 3.5f);
+                    newBall2.transform.position = lastItem.transform.position + new Vector3(gap * 2, 0, Mathf.Sqrt(speed) * 3.5f);
                 }
                 else
                 {
@@ -111,10 +120,17 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    public static void addScore(long reward)
     {
 
-        scoreGUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
+        score += reward;
+
+        if (score > maxScore)
+        {
+            maxScore = score;
+        }
+
+        instance.scoreGUI.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
         if (score < 0)
         {
@@ -128,7 +144,7 @@ public class GameManager : MonoBehaviour
     {
         while (speed < 60)
         {
-            speed += 0.1f;
+            speed += 0.2f;
             yield return new WaitForSeconds(.1f);
         }
     }

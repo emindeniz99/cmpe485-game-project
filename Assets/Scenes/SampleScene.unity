@@ -727,7 +727,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,8 +936,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 245560165628646248, guid: 7062c0cfce2e74d4faeb5bff0bae05aa, type: 3}
-  StartCapacity: 5
-  MaxSize: 100
+  StartCapacity: 1
+  MaxSize: 10
   isPoolingEnabled: 1
 --- !u!4 &1458284931
 Transform:
