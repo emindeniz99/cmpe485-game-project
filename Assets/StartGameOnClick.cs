@@ -14,17 +14,18 @@ public class StartGameOnClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene("SampleScene");
         }
 
         foreach (Touch touch in Input.touches)
         {
-            if (touch.phase == TouchPhase.Ended)
+            if (touch.phase == TouchPhase.Began)
             {
                 SceneManager.LoadScene("SampleScene");
             }
+
         }
     }
 }

@@ -8,8 +8,13 @@ public class GameManager : MonoBehaviour
 {
 
     public GameObject scoreGUI;
+    public GameObject durationGUI;
+
+    public static long duration = 0;
+
 
     public static long score = 0;
+    public static long maxScore = 0;
 
     public static float speed = 15;
 
@@ -26,8 +31,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        duration = 0;
         score = 0;
+        maxScore = 0;
+
         speed = 15;
         areaWidth = ground.transform.localScale.x * positionScaleRatio;
         areaHeight = ground.transform.localScale.z * positionScaleRatio;
@@ -37,6 +44,7 @@ public class GameManager : MonoBehaviour
             ground.transform.localScale.z * 2);
 
         StartCoroutine(SpeedUp());
+        StartCoroutine(countTime());
     }
 
 
@@ -112,6 +120,7 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("GameOver");
         }
+
     }
 
 
@@ -121,6 +130,16 @@ public class GameManager : MonoBehaviour
         {
             speed += 0.1f;
             yield return new WaitForSeconds(.1f);
+        }
+    }
+    IEnumerator countTime()
+    {
+        while (true)
+        {
+            duration += 1;
+            durationGUI.GetComponent<TextMeshProUGUI>().text = "Duration: " + duration;
+
+            yield return new WaitForSeconds(1);
         }
     }
 

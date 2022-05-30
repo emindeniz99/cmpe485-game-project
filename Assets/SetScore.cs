@@ -7,12 +7,14 @@ using UnityEngine.SceneManagement;
 public class SetScore : MonoBehaviour
 {
 
-    public GameObject scoreText;
+    public GameObject maxScoreText;
+    public GameObject durationText;
     // Start is called before the first frame update
     void Start()
     {
 
-        scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + GameManager.score;
+        durationText.GetComponent<TextMeshProUGUI>().text = "Duration: " + GameManager.duration;
+        maxScoreText.GetComponent<TextMeshProUGUI>().text = "Max Score: " + GameManager.maxScore;
     }
 
     // Update is called once per frame

@@ -43,6 +43,11 @@ public class Items : MonoBehaviour
         if (other.gameObject.name == "player")
         {
             GameManager.score += reward;
+
+            if (GameManager.score > GameManager.maxScore)
+            {
+                GameManager.maxScore = GameManager.score;
+            }
             PoolManager.Instance.spawnPool.Release(gameObject);
         }
     }
