@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     public static long duration = 0;
 
-
     public static long score = 0;
     public static long maxScore = 0;
 
@@ -56,69 +55,55 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-
-
-
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Space))
+
+        if (PoolManager.Instance.isPoolingEnabled)
         {
+            if (!PoolManager.Instance.CanGet(2)) return;
 
-            if (PoolManager.Instance.isPoolingEnabled)
+            // left
+            var newBall = PoolManager.Instance.GetFromPool();
+
+            // right
+            var newBall2 = PoolManager.Instance.GetFromPool();
+
+            // item position left and right
+            var gap = 1.5f;
+            if (lastItem != null)
             {
-                if (!PoolManager.Instance.CanGet(2)) return;
+                newBall.transform.position = lastItem.transform.position + new Vector3(0, 0, Mathf.Sqrt(speed) * 3.5f);
+                newBall2.transform.position = lastItem.transform.position + new Vector3(gap * 2, 0, Mathf.Sqrt(speed) * 3.5f);
+            }
+            else
+            {
+                newBall.transform.position = new Vector3(-gap, 0.5f, areaHeight);
+                newBall2.transform.position = new Vector3(gap, 0.5f, areaHeight);
+            }
 
-                // left
-                var newBall = PoolManager.Instance.GetFromPool();
-                var newBall2 = PoolManager.Instance.GetFromPool();
-
-                var gap = 1.5f;
-                if (lastItem != null)
-                {
-                    newBall.transform.position = lastItem.transform.position + new Vector3(0, 0, Mathf.Sqrt(speed) * 3.5f);
-                    newBall2.transform.position = lastItem.transform.position + new Vector3(gap * 2, 0, Mathf.Sqrt(speed) * 3.5f);
-                }
-                else
-                {
-                    newBall.transform.position = new Vector3(-gap, 0.5f, areaHeight);
-                    newBall2.transform.position = new Vector3(gap, 0.5f, areaHeight);
-                }
-
-                var pos = Random.Range(0, 2);
-                if (pos == 0)
-                {
-                    newBall.GetComponent<Items>().setValue(Random.Range(-20, -5));
-                    newBall2.GetComponent<Items>().setValue(Random.Range(1, 10));
-
-                }
-                else
-                if (pos == 1)
-                {
-                    newBall.GetComponent<Items>().setValue(Random.Range(1, 10));
-                    newBall2.GetComponent<Items>().setValue(Random.Range(-20, -5));
-
-                }
-
-                lastItem = newBall;
+            // random positive and negative rewards
+            var pos = Random.Range(0, 2);
+            var negative = Random.Range(-20, -5);
+            var positive = Random.Range(1, 10);
+            if (pos == 0)
+            {
+                newBall.GetComponent<Items>().setValue(negative);
+                newBall2.GetComponent<Items>().setValue(positive);
 
             }
-            // else
-            // {
-            //     var newBall = Instantiate(PoolManager.Instance.Prefab, spawnPoint.position, Quaternion.identity);
-            //     Rigidbody ballBody = newBall.GetComponent<Rigidbody>();
-            //     if (ballBody != null)
-            //     {
-            //         ballBody.velocity = Vector3.zero;
-            //         ballBody.angularVelocity = Vector3.zero;
-            //         ballBody.AddForce((spawnPoint.position - basePoint.position) * 300f);
-            //     }
-            // }
+            else if (pos == 1)
+            {
+                newBall.GetComponent<Items>().setValue(positive);
+                newBall2.GetComponent<Items>().setValue(negative);
+
+            }
+
+            // memorize the last item in order to use its position to create the next item
+            lastItem = newBall;
 
         }
     }
-
 
     public static void addScore(long reward)
     {
@@ -139,7 +124,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-
     IEnumerator SpeedUp()
     {
         while (speed < 60)
@@ -148,6 +132,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
     }
+
     IEnumerator countTime()
     {
         while (true)

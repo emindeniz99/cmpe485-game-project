@@ -27,30 +27,9 @@ public class Player : MonoBehaviour
 
         transform.Translate(movement * Time.deltaTime * speed);
 
-
-
-
         foreach (var touch in Input.touches)
         {
-
             transform.Translate(new Vector3(touch.deltaPosition.x, 0, touch.deltaPosition.y) * touch.deltaTime / 2);
-
-            //     if(touch.phase == TouchPhase.Began)
-            //     {
-            //         start= touch.position;
-
-            //     }else if(touch.phase== TouchPhase.Ended){
-
-
-            // Vector3 movement = new Vector3(x, 0, z);
-
-            // transform.Translate(movement * Time.deltaTime * speed);
-
-
-
-
-            //         start = Vector2.zero;
-            //     }
         }
 
         gameObject.transform.position = new Vector3(Mathf.Clamp(gameObject.transform.position.x, -2, 2), gameObject.transform.position.y, Mathf.Clamp(gameObject.transform.position.z, -0, 0));

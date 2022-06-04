@@ -16,14 +16,14 @@ public class StartGameOnClick : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("GameScene");
         }
 
         foreach (Touch touch in Input.touches)
         {
             if (touch.phase == TouchPhase.Began)
             {
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("GameScene");
             }
 
         }
